@@ -7,7 +7,7 @@ CREATE DATABASE MONSTERHUNTER;
 -- Accede a la base de datos existente con ese nombre.
 USE MONSTERHUNTER;
 
-CREATE TABLE `Image`(
+CREATE TABLE `BestImage`(
 	`ID_IMAGE` integer 	UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	`Path` varchar(255),
 	`Description` varchar(255)
@@ -30,7 +30,9 @@ CREATE TABLE `MonsterClass` (
 -- "Name" representa el nombre del tipo de debilidad (por ejemplo, fuego, agua, rayo, etc.).
 CREATE TABLE `Weakness` (
 	`ID_WEAKNESS` integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
-	`Name` varchar(255)
+	`ID_IMAGE` integer,
+	`Name` varchar(255),
+	CONSTRAINT FK_ID_IMAGE_WEAKNESS FOREIGN KEY(ID_IMAGE) REFERENCES BestImage(ID_IMAGE) 
 );
 
 -- Crea la tabla de estado, creando también la clave primaria "ID_STATE" para identificarla.
@@ -94,7 +96,22 @@ ALTER TABLE `Monster` ADD CONSTRAINT `FK_ID_CLASS` FOREIGN KEY (`ID_CLASS`) REFE
 
 
 INSERT INTO `Images`(Path, Description) VALUES
-()
+('Assets/Images/Elements/Elemento_Fuego.png', 'Elemnto Fuego'),
+('Assets/Images/Elements/Elemento_Agua.png', 'Elemento Agua'),
+('Assets/Images/Elements/Elemento_Rayo.png', 'Elemento Rayo'), 
+('Assets/Images/Elements/Elemento_Hielo.png', 'Elemento Hielo'),
+('Assets/Images/Elements/Elemento_Draco.png', 'Elemento Draco'),
+('Assets/Images/Elements/Estado_Nitro.png', 'Estado Nitro'),
+('Assets/Images/Elements/Estado_Veneno.png', 'Estado Veneno'),
+('Assets/Images/Elements/Estado_Paralisis.png', 'Estado Paralisis'),
+('Assets/Images/Elements/Estado_Sueño.png', 'Estado Sueño'),
+('Assets/Images/Elements/Estado_Aturdido.png', 'Estado Aturdido'),
+('Assets/Images/Elements/Estado_DefensaRed.png', 'Estado Defensa Reducida'),
+('Assets/Images/Elements/Estado_DefensaSev.png', 'Estado Defensa Muy Reducida'),
+('Assets/Images/Elements/Estado_AzoteNitro.png', 'Estado Azote Nitro'),
+('Assets/Images/Elements/Estado_Sangrado.png', 'Estado Sangrado'),
+('Assets/Images/Elements/Estado_Efluvio.png', 'Estado Acumulación de Efluvio'),
+;
 
 INSERT INTO `Type` (ID_TYPE, Name, Description) VALUES 
 (1, 'Bestia de Colmillo', 'Criaturas cuadrúpedas ágiles y feroces que cazan usando colmillos y garras.'),
@@ -113,9 +130,9 @@ INSERT INTO `Weakness` (ID_WEAKNESS, Name) VALUES
 (2, 'Agua'),
 (3, 'Rayo'),
 (4, 'Hielo'),
-(5, 'Veneno'),
+(5, 'Draco'),
 (6, 'Explosivo'),
-(7, 'Dragón');
+(7, 'Veneno');
 
 INSERT INTO `State` (ID_STATE, Name, Description) VALUES
 (1, 'Plaga de Fuego', 'Estado donde el cazador irá reduciendo poco a poco la vida del cazador al estar quemándose. '),
@@ -124,8 +141,8 @@ INSERT INTO `State` (ID_STATE, Name, Description) VALUES
 (4, 'Plaga de Hielo', ' Estado aumenta la velocidad de consumo de resistencia haciendo que se gaste más rápido.'),
 (5, 'Plaga de Draco', 'Estado que anula el atributo del arma.'),
 (6, 'Plaga de Nitro','Estado que cubre al cazador de una sustancia volátil que explotará transcurrido un tiempo o al recibir un ataque.'),
-(7, 'Paralizado', 'El cazador quedará inmovilizado en el suelo mientras rayos amarillos surcan su cuerpo.'),
-(8, 'Veneno', 'Reduce gradualmente la salud del cazador durante cierto tiempo.'),
+(7, 'Veneno', 'Reduce gradualmente la salud del cazador durante cierto tiempo.'),
+(8, 'Paralisis', 'El cazador quedará inmovilizado en el suelo mientras rayos amarillos surcan su cuerpo.'),
 (9, 'Sueño', ' El cazador andará adormecido durante unos segundos antes de caer dormido.'),
 (10, 'Aturdimiento', 'El cazador se quede mareado sin poder moverse, indicado como estrellas dando vueltas sobre su cabeza.'),
 (11, 'Defensa reducida','Estado anormal causado por sustancias corrosivas que debilitan la armadura del cazador'),
@@ -205,7 +222,7 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
 (8, 2, 2, 2, 'Jyuratodus', 'Un gran wyvern nadador que habita en los pantanos del Yermo de Agujas. Se ayuda del barro para capturar a sus presas, y a veces se le puede ver peleando por su territorio con Barroth.', 
 'Yermo de Agujas', 'Puede cubrirse de barro para defenderse y atacar.',
  2100.877, 1358.007),
-(9, 6, 8, 3, 'Pukei-Pukei', 'Wyvern pájaro conocido por las toxinas venenosas de su cuerpo. A menudo almacena fragmenueces en la boca o la cola, lo que las cubre de veneno y las hace útiles como proyectiles contra cualquier amenaza.', 
+(9, 6, 7, 3, 'Pukei-Pukei', 'Wyvern pájaro conocido por las toxinas venenosas de su cuerpo. A menudo almacena fragmenueces en la boca o la cola, lo que las cubre de veneno y las hace útiles como proyectiles contra cualquier amenaza.', 
 'Bosque Primigenio, Yermo de Agujas', 'Suelta un gas venenoso para dificultar la visión.',
   1344.99, 970.16),
 (7, 3, 3, 2, 'Tobi-Kadachi', 'Wyvern de grandes colmillos que vuela entre los árboles del Bosque Primigenio. Es capaz de utilizar a su favor la electricidad estática que acumula al frotarse con los árboles mientras se mueve.',
@@ -217,10 +234,10 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
 (7, 6, 10, 1, 'Gran Jagras', 'El lider de una manada de Jagras. Son muy voraces: los grandes Jagras hambrientos atacan a monstruos mas fuertes que ellos, y cuando tienen el estomago lleno este puede hincharse hasta alcanzar un gran tamaño.', 
 'Bosque Primigenio', 'Se infla tras comer y es territorial.',
  1590.993, 976.600),
-(7, 6, 7, 2, 'Girros', 'Monstruos que atacan en grupo utilizando a su favor los gases letales del Valle Putrefacto. También son capaces de mutilar a sus víctimas con sus colmillos paralizantes.',
+(7, 6, 8, 2, 'Girros', 'Monstruos que atacan en grupo utilizando a su favor los gases letales del Valle Putrefacto. También son capaces de mutilar a sus víctimas con sus colmillos paralizantes.',
  'Valle Putrefacto', 'Ataca en manadas y puede ser peligroso si se le provoca.',
  500.0, 300.0),
-(7, 6, 7, 2, 'Gran Girros', 'Monstruo que se alimenta rapiñando los restos de comida caídos de los Altiplanos Coralinos. Actúan como líderes en las manadas de Girros, y cuentan con colmillos paralizantes de gran tamaño.',
+(7, 6, 8, 2, 'Gran Girros', 'Monstruo que se alimenta rapiñando los restos de comida caídos de los Altiplanos Coralinos. Actúan como líderes en las manadas de Girros, y cuentan con colmillos paralizantes de gran tamaño.',
  'Valle Putrefacto', 'Ataca en manada y tiene veneno fuerte.',
  1400.0, 900.0),
 (7, 6, 10, 1, 'Shamos', 'Pequeños monstruos nocturnos. Son especialmente vulnerables a los fogonazos cegadores del Tzitzi-Ya-Ku, pero si se juntan en un buen grupo pueden ser una amenaza.',
@@ -232,7 +249,7 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
 (10, 1, 1, 4, 'Bazelgeuse', 'Un malvado wyvern volador que se ha desplazado al Nuevo Mundo en busca de presas. Para cazar esparce escamas explosivas por amplias superficies, para alimentarse de criaturas atrapadas en la explosión.',
  'Bosque Primigenio, Yermo de Agujas, Altiplanos Coralinos, Valle Putrefacto, Lecho de los Ancianos', 'Sus escamas caen y explotan causando daño masivo.', 
 3000.0, 1600.0),
-(3, 3, 10, 7, 'Vaal Hazak', 'Wyvern que domina la necrosis y ataques de gas venenoso.', 
+(3, 3, 10, 5, 'Vaal Hazak', 'Wyvern que domina la necrosis y ataques de gas venenoso.', 
 'Valle Putrefacto', 'Puede causar drenaje de vida al cazador.', 
 2600.0, 1400.0),
 (3, 5, 10, 1, 'Nergigante', 'Un dragón anciano feroz conocido por su resistencia y ataques punzantes.', 
@@ -243,11 +260,11 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
 15000.0, 13000.0)
 ;
 INSERT INTO `Monster`(ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Description, Habitat, Notes, MaxSize, MinSize) VALUES
-(5, 6, 10, 5, 'Kulu-Ya-Ku', 'Lynian que roba objetos y usa herramientas para defenderse.', 'Bosque Primigenio', 'Conocido por robar huevos y atacar con objetos.', 800.0, 400.0),
-(5, 6, 10, 5, 'Wulg', 'Lynian que se desplaza rápido y ataca en manada.', 'Bosque Primigenio', 'Ataques coordinados y rápidos.', 600.0, 350.0),
+(5, 6, 10, 7, 'Kulu-Ya-Ku', 'Lynian que roba objetos y usa herramientas para defenderse.', 'Bosque Primigenio', 'Conocido por robar huevos y atacar con objetos.', 800.0, 400.0),
+(5, 6, 10, 7, 'Wulg', 'Lynian que se desplaza rápido y ataca en manada.', 'Bosque Primigenio', 'Ataques coordinados y rápidos.', 600.0, 350.0),
 (6, 1, 10, 3, 'Tigrex', 'Wyvern brutal que ataca con embestidas y rugidos.', 'Yermo de Agujas', 'Muy agresivo y difícil de esquivar.', 2800.0, 1500.0),
 (6, 4, 10, 3, 'Brachydios Colerico', 'Variante agresiva que usa explosiones de mucosa.', 'Bosque Primigenio', 'Ataques explosivos con mucosa.', 2900.0, 1500.0),
-(6, 4, 10, 7, 'Beotodus', 'Wyvern que nada y caza bajo el hielo con colmillos afilados.', 'Zona Ártica', 'Especialista en ataques bajo hielo.', 2600.0, 1400.0),
+(6, 4, 10, 5, 'Beotodus', 'Wyvern que nada y caza bajo el hielo con colmillos afilados.', 'Zona Ártica', 'Especialista en ataques bajo hielo.', 2600.0, 1400.0),
 (6, 1, 10, 3, 'Barioth', 'Wyvern ágil que usa hielo y ataques rápidos.', 'Zona Ártica', 'Muy móvil y agresivo.', 2100.0, 1200.0),
 (6, 1, 10, 5, 'Shara Ishvalda', 'Wyvern antiguo que controla viento y tierra.', 'Gran Bosque', 'Evento especial, muy raro.', 3500.0, 2000.0),
 (6, 5, 10, 2, 'Velkhana', 'Wyvern anciano que domina el hielo y puede congelar el entorno.', 'Zona Ártica', 'Jefe principal en Iceborne.', 3400.0, 1800.0),
@@ -261,11 +278,11 @@ INSERT INTO `Monster`(ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Descrip
  'Bosque Primigenio, Llanura', 'Se puede montar para desplazarse rápidamente y huir de los peligros.', 150.0, 100.0),
 (1, 6, 10, 1, 'Wulg', 'Depredador pequeño y ágil que suele cazar en grupo y aprovechar emboscadas.',
  'Bosque Primigenio', 'Muy rápido y ágil, difícil de atrapar.', 600.0, 350.0),
-(5, 1, 1, 5, 'Vespoid', 'Insecto volador que ataca en enjambres y puede lanzar ataques venenosos.',
+(5, 1, 1, 7, 'Vespoid', 'Insecto volador que ataca en enjambres y puede lanzar ataques venenosos.',
  'Bosque Primigenio', 'Ataques rápidos y en grupo, puede envenenar al cazador.', 250.0, 150.0),
 (4, 6, 10, 1, 'Kestodon', 'Herbíboro pequeño con cuernos, que se mueve en manadas y huye ante la amenaza.',
  'Bosque Primigenio', 'Se pueden montar para escapar rápidamente.', 120.0, 90.0),
-(5, 1, 1, 5, 'Hornetaur', 'Insectos voladores grandes que atacan con aguijones venenosos y mandíbulas fuertes.',
+(5, 1, 1, 7, 'Hornetaur', 'Insectos voladores grandes que atacan con aguijones venenosos y mandíbulas fuertes.',
  'Bosque Primigenio', 'Ataques venenosos, voladores y agresivos.', 350.0, 280.0),
 (4, 6, 10, 1, 'Popo', 'Herbíboros pequeños que se mueven en manadas, con cuernos afilados.',
  'Bosque Primigenio', 'Pacíficos, son alimento común para depredadores.', 100.0, 80.0),
