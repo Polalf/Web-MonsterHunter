@@ -291,5 +291,76 @@ INSERT INTO `Monster`(ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Descrip
 ;
 
 
+-- SELECT con JOIN 1
+-- Muestra el nombre del monstruo y su clase usando la tabla MonsterClass
+SELECT monster.Name AS "Nombre", MonsterClass.Name AS "Clase"
+FROM monster
+JOIN MonsterClass ON monster.ID_CLASS = MonsterClass.ID_CLASS;
 
+-- SELECT con JOIN 2
+-- Muestra el nombre del monstruo, el nombre del elemento y el estado asociado al elemento
+SELECT monster.Name AS "Monstruo", element.Name AS "Elemento", state.Name AS "Estado"
+FROM monster
+JOIN element ON monster.ID_ELEMENT = element.ID_ELEMENT
+JOIN state ON element.ID_STATE = state.ID_STATE;
 
+-- SELECT con WHERE y ORDER 3
+-- Muestra los monstruos con debilidad al 'Fuego', ordenados por tamaño máximo descendente
+SELECT monster.Name AS "Nombre", weakness.Name AS "Debilidad", monster.MaxSize
+FROM monster
+JOIN weakness ON monster.ID_WEAKNESS = weakness.ID_WEAKNESS
+WHERE weakness.Name = 'Fuego'
+ORDER BY monster.MaxSize DESC;
+
+-- SELECT con WHERE y ORDER 4
+-- Muestra los monstruos con tamaño mínimo menor a 500, ordenados alfabéticamente por nombre
+SELECT Name, MinSize
+FROM monster
+WHERE MinSize < 500
+ORDER BY Name ASC;
+
+-- SELECT con WHERE y ORDER 5
+-- Muestra los monstruos que viven en el 'Valle Putrefacto', ordenados por tamaño máximo ascendente
+SELECT Name, Habitat, MaxSize
+FROM monster
+WHERE Habitat LIKE '%Valle Putrefacto%'
+ORDER BY MaxSize ASC;
+
+-- SELECT con WHERE y ORDER 6
+-- Muestra los monstruos con elemento 'Hielo', ordenados por tamaño mínimo descendente
+SELECT monster.Name AS "Monstruo", element.Name AS "Elemento", monster.MinSize
+FROM monster
+JOIN element ON monster.ID_ELEMENT = element.ID_ELEMENT
+WHERE element.Name = 'Hielo'
+ORDER BY monster.MinSize DESC;
+
+-- UPDATE 1
+-- Actualiza el hábitat del monstruo 'Barioth' a 'Zona Glacial'
+UPDATE monster
+SET Habitat = 'Zona Glacial'
+WHERE Name = 'Barioth';
+
+-- UPDATE 2
+-- Cambia la debilidad del monstruo 'Deviljho' a 'Fuego'
+UPDATE monster
+SET ID_WEAKNESS = (
+    SELECT ID_WEAKNESS FROM weakness WHERE Name = 'Fuego'
+)
+WHERE Name = 'Deviljho';
+
+-- DELETE
+-- Elimina el monstruo llamado 'Apceros'
+DELETE FROM monster
+WHERE Name = 'Apceros';
+
+-- INSERT
+-- Inserta un nuevo monstruo llamado 'Gran Vespoid' usando valores compatibles y existentes
+INSERT INTO monster (ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Description, Habitat, Notes, MaxSize, MinSize)
+VALUES (
+    5, 1, 1, 7,
+    'Gran Vespoid',
+    'Insecto volador de gran tamaño que ataca en enjambres venenosos.',
+    'Bosque Primigenio',
+    'Es una versión más grande de los Vespoid, con ataques más potentes.',
+    500.0, 300.0
+);
