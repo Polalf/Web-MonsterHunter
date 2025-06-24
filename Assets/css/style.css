@@ -7,6 +7,14 @@ body.bestiary-bg {
   max-height: 80px;
 }
 
+.icono {
+  height: 24px;
+  width: 24px;
+  object-fit: contain;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 .filtros-container {
   background-color: #fff4dc;
   border-radius: 12px;
