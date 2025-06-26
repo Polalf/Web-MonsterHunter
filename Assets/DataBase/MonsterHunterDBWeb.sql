@@ -92,7 +92,7 @@ ALTER TABLE `Monster` ADD CONSTRAINT `FK_ID_WEAKNESS` FOREIGN KEY (`ID_WEAKNESS`
 ALTER TABLE `Element` ADD CONSTRAINT `FK_ID_STATE_ELEMENT` FOREIGN KEY (`ID_STATE`) REFERENCES `State` (`ID_STATE`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 -- Aquí se genera la referencia a la entidad de Type dentro de la entidad de Monstruo
-ALTER TABLE `Monster` ADD CONSTRAINT `FK_ID_CLASS` FOREIGN KEY (`ID_CLASS`) REFERENCES `Type` (`ID_CLASS`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `Monster` ADD CONSTRAINT `FK_ID_CLASS` FOREIGN KEY (`ID_CLASS`) REFERENCES `MonsterClass` (`ID_CLASS`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 
 INSERT INTO `Images`(Path, Description) VALUES
@@ -110,10 +110,10 @@ INSERT INTO `Images`(Path, Description) VALUES
 ('Assets/Images/Elements/Estado_DefensaSev.png', 'Estado Defensa Muy Reducida'),
 ('Assets/Images/Elements/Estado_AzoteNitro.png', 'Estado Azote Nitro'),
 ('Assets/Images/Elements/Estado_Sangrado.png', 'Estado Sangrado'),
-('Assets/Images/Elements/Estado_Efluvio.png', 'Estado Acumulación de Efluvio'),
+('Assets/Images/Elements/Estado_Efluvio.png', 'Estado Acumulación de Efluvio')
 ;
 
-INSERT INTO `Type` (ID_TYPE, Name, Description) VALUES 
+INSERT INTO `MonsterClass` (ID_CLASS, Name, Description) VALUES 
 (1, 'Bestia de Colmillo', 'Criaturas cuadrúpedas ágiles y feroces que cazan usando colmillos y garras.'),
 (2, 'Dracoalado', 'Reptiles con alas, similares a dragones, capaces de volar y usar alientos elementales.'),
 (3, 'Dragon Anciano', 'Seres míticos extremadamente poderosos que desafían la lógica natural.'),
@@ -194,7 +194,8 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
  'Bosque Primigenio, Lecho de los Ancianos, Tierras Destino', 'La habilidad más destacable del Kushala Daora es su habilidad de llevar tormentas allá por donde va y de manipular los vientos de forma ofensiva y defensiva. Es capaz de lanzar proyectiles de viento e incluso generar huracanes y ventiscas.',
  2215.6, 1261.6),
  (6, 2, 2, 4, 'Barroth', 'Los Barroth pasan gran parte de su tiempo buscando hormigas, su alimento principal, y marcando su territorio con barro. Si se enfrentan a un enemigo, su seña de identidad es una carga muy poderosa.',
- 'Yermo de Agujas', 'Utiliza su gran cresta para intentar aplastar a sus enemigos y embestirlos con furia ciega. También puede atacar con la cola y agitarse para lanzar barro a sus enemigos.', 2039.723, 1217.1),
+ 'Yermo de Agujas', 'Utiliza su gran cresta para intentar aplastar a sus enemigos y embestirlos con furia ciega. También puede atacar con la cola y agitarse para lanzar barro a sus enemigos.',
+ 2039.723, 1217.1),
  (6, 5, 11,3, 'Deviljho','Debido a su metabolismo, los Deviljho siempre andan buscando presas. Son muy agresivos, y a menudo se les ve con las fauces clavadas en grandes monstruos y sacudiéndolos por los aires.',
  'Todos', ' Al enfurecerse, sus músculos se hinchan y enrojecen, y puede atacar con un aliento de elemento dragón de rango considerable. Por otro lado, su saliva es ácida, por lo que sus mordidas causan Defensa reducida cuando está cansado.',
  4097.8 , 1803),
@@ -210,27 +211,9 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
  (7, 6, 14, 4, 'Odogaron', 'Terrorífico monstruo que recorre el Valle Putrefacto en busca de carroña. Su naturaleza agresiva convierte a cualquiera, sea monstruo o persona, en una cena potencial.',
   'Valle Putrefacto, Altiplanos Coralinos, Tierras Destino', 'Sus temibles garras aserradas pueden causar hemorragias que dificultan la curación de los cazadores.',
   1735.94, 541.61),
- (7, 6, 6, 3, 'Dodogama', '	Un monstruo cuya dieta se basa en devorar rocas. Los cristales que devora se mezclan con su saliva para producir minerales explosivos que escupe a sus enemigos.',
- 'Lecho de los Ancianos', ' Su habilidad más temible es la de escupir las rocas que ha consumido como proyectiles que explotan al caer, pudiendo lanzarlos de diversas formas incluyendo un poderoso ataque en área.',
- 2000, 977.78),
- (9, 6, 10, 3, 'Tzitzi-Ya-Ku', 'Extraño monstruo que ciega tanto a presas como a enemigos con los destellos de un órgano especial cerca de su cabeza, para a continuación rematarlos con sus fuertes patas.', 
-'Altiplanos Coralinos', 'Utiliza ataques de luz para desorientar al cazador.',
- 1200.0, 700.0),
-(10, 6, 10,3, 'Paolumu', 'Los Paolumu se dan auténticos festines de huevos en los Altiplanos Coralinos. Los peculiares sacos de aire de su cuerpo les permiten flotar en el aire y atacar con su durísima cola.', 
-'Altiplanos Coralinos', 'Se desplaza flotando y puede atacar con ráfagas de viento.',
- 1500.0, 900.0),
-(8, 2, 2, 2, 'Jyuratodus', 'Un gran wyvern nadador que habita en los pantanos del Yermo de Agujas. Se ayuda del barro para capturar a sus presas, y a veces se le puede ver peleando por su territorio con Barroth.', 
-'Yermo de Agujas', 'Puede cubrirse de barro para defenderse y atacar.',
- 2100.877, 1358.007),
-(9, 6, 7, 3, 'Pukei-Pukei', 'Wyvern pájaro conocido por las toxinas venenosas de su cuerpo. A menudo almacena fragmenueces en la boca o la cola, lo que las cubre de veneno y las hace útiles como proyectiles contra cualquier amenaza.', 
-'Bosque Primigenio, Yermo de Agujas', 'Suelta un gas venenoso para dificultar la visión.',
-  1344.99, 970.16),
 (7, 3, 3, 2, 'Tobi-Kadachi', 'Wyvern de grandes colmillos que vuela entre los árboles del Bosque Primigenio. Es capaz de utilizar a su favor la electricidad estática que acumula al frotarse con los árboles mientras se mueve.',
  'Bosque Primigenio', 'Puede escalar paredes y atacar con electricidad.',
  1300.0, 700.0),
-(7, 6, 15, 1, 'Jagras', 'Miembros de la manada de un Gran Jagras. Si ven morir a uno de los suyos huirán, pero también se les ha visto emboscar a monstruos grandes en cortos espacios de tiempo.',
- 'Bosque Primigenio', 'Se agrupa en manadas y es uno de los primeros depredadores a los que enfrentarse.',
- 700.0, 300.0),
 (7, 6, 10, 1, 'Gran Jagras', 'El lider de una manada de Jagras. Son muy voraces: los grandes Jagras hambrientos atacan a monstruos mas fuertes que ellos, y cuando tienen el estomago lleno este puede hincharse hasta alcanzar un gran tamaño.', 
 'Bosque Primigenio', 'Se infla tras comer y es territorial.',
  1590.993, 976.600),
@@ -259,108 +242,5 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
 'Volcán', 'Aparece como evento especial.', 
 15000.0, 13000.0)
 ;
-INSERT INTO `Monster`(ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Description, Habitat, Notes, MaxSize, MinSize) VALUES
-(5, 6, 10, 7, 'Kulu-Ya-Ku', 'Lynian que roba objetos y usa herramientas para defenderse.', 'Bosque Primigenio', 'Conocido por robar huevos y atacar con objetos.', 800.0, 400.0),
-(5, 6, 10, 7, 'Wulg', 'Lynian que se desplaza rápido y ataca en manada.', 'Bosque Primigenio', 'Ataques coordinados y rápidos.', 600.0, 350.0),
-(6, 1, 10, 3, 'Tigrex', 'Wyvern brutal que ataca con embestidas y rugidos.', 'Yermo de Agujas', 'Muy agresivo y difícil de esquivar.', 2800.0, 1500.0),
-(6, 4, 10, 3, 'Brachydios Colerico', 'Variante agresiva que usa explosiones de mucosa.', 'Bosque Primigenio', 'Ataques explosivos con mucosa.', 2900.0, 1500.0),
-(6, 4, 10, 5, 'Beotodus', 'Wyvern que nada y caza bajo el hielo con colmillos afilados.', 'Zona Ártica', 'Especialista en ataques bajo hielo.', 2600.0, 1400.0),
-(6, 1, 10, 3, 'Barioth', 'Wyvern ágil que usa hielo y ataques rápidos.', 'Zona Ártica', 'Muy móvil y agresivo.', 2100.0, 1200.0),
-(6, 1, 10, 5, 'Shara Ishvalda', 'Wyvern antiguo que controla viento y tierra.', 'Gran Bosque', 'Evento especial, muy raro.', 3500.0, 2000.0),
-(6, 5, 10, 2, 'Velkhana', 'Wyvern anciano que domina el hielo y puede congelar el entorno.', 'Zona Ártica', 'Jefe principal en Iceborne.', 3400.0, 1800.0),
-(6, 3, 10, 5, 'Namielle', 'Wyvern anciano que usa agua y electricidad.', 'Bosque Sumergido', 'Combina ataques eléctricos y acuáticos.', 3300.0, 1600.0),
-(6, 2, 10, 4, 'Tzitzi-Ya-Ku', 'Wyvern que aturde con destellos de luz cegadora.', 'Bosque Primigenio', 'Ataques de luz para desorientar.', 1200.0, 700.0),
-(6, 1, 10, 3, 'Rajang', 'Wyvern feroz con ataques eléctricos y mucha fuerza.', 'Montañas', 'Muy agresivo y fuerte.', 2800.0, 1500.0),
-(6, 4, 10, 6, 'Safi\'jiiva', 'Wyvern anciano que absorbe energía vital.', 'Lecho de los Ancianos', 'Evento de mundo, muy peligroso.', 4000.0, 2500.0),
-(6, 2, 10, 5, 'Fulgur Anjanath', 'Variante de Anjanath con ataques eléctricos.', 'Bosque Primigenio', 'Ataques potenciados con electricidad.', 3500.0, 1500.0),
-(6, 3, 10, 4, 'Gold Rathian', 'Variante de Rathian con escamas doradas y ataques potentes.', 'Lecho de los Ancianos', 'Más agresiva que la original.', 3100.0, 1700.0),
-(4, 6, 10, 1, 'Aptonoth', 'Un herbívoro pacífico que suele ser presa fácil para los depredadores. Se mueve en manadas por el bosque y la llanura.',
- 'Bosque Primigenio, Llanura', 'Se puede montar para desplazarse rápidamente y huir de los peligros.', 150.0, 100.0),
-(1, 6, 10, 1, 'Wulg', 'Depredador pequeño y ágil que suele cazar en grupo y aprovechar emboscadas.',
- 'Bosque Primigenio', 'Muy rápido y ágil, difícil de atrapar.', 600.0, 350.0),
-(5, 1, 1, 7, 'Vespoid', 'Insecto volador que ataca en enjambres y puede lanzar ataques venenosos.',
- 'Bosque Primigenio', 'Ataques rápidos y en grupo, puede envenenar al cazador.', 250.0, 150.0),
-(4, 6, 10, 1, 'Kestodon', 'Herbíboro pequeño con cuernos, que se mueve en manadas y huye ante la amenaza.',
- 'Bosque Primigenio', 'Se pueden montar para escapar rápidamente.', 120.0, 90.0),
-(5, 1, 1, 7, 'Hornetaur', 'Insectos voladores grandes que atacan con aguijones venenosos y mandíbulas fuertes.',
- 'Bosque Primigenio', 'Ataques venenosos, voladores y agresivos.', 350.0, 280.0),
-(4, 6, 10, 1, 'Popo', 'Herbíboros pequeños que se mueven en manadas, con cuernos afilados.',
- 'Bosque Primigenio', 'Pacíficos, son alimento común para depredadores.', 100.0, 80.0),
-(4, 6, 10, 1, 'Apceros', 'Monstruos herbívoros con cuernos pequeños que suelen huir de los depredadores.',
- 'Bosque Primigenio', 'Se puede montar para desplazarse.', 110.0, 90.0);
-;
 
 
--- SELECT con JOIN 1
--- Muestra el nombre del monstruo y su clase usando la tabla MonsterClass
-SELECT monster.Name AS "Nombre", MonsterClass.Name AS "Clase"
-FROM monster
-JOIN MonsterClass ON monster.ID_CLASS = MonsterClass.ID_CLASS;
-
--- SELECT con JOIN 2
--- Muestra el nombre del monstruo, el nombre del elemento y el estado asociado al elemento
-SELECT monster.Name AS "Monstruo", element.Name AS "Elemento", state.Name AS "Estado"
-FROM monster
-JOIN element ON monster.ID_ELEMENT = element.ID_ELEMENT
-JOIN state ON element.ID_STATE = state.ID_STATE;
-
--- SELECT con WHERE y ORDER 3
--- Muestra los monstruos con debilidad al 'Fuego', ordenados por tamaño máximo descendente
-SELECT monster.Name AS "Nombre", weakness.Name AS "Debilidad", monster.MaxSize
-FROM monster
-JOIN weakness ON monster.ID_WEAKNESS = weakness.ID_WEAKNESS
-WHERE weakness.Name = 'Fuego'
-ORDER BY monster.MaxSize DESC;
-
--- SELECT con WHERE y ORDER 4
--- Muestra los monstruos con tamaño mínimo menor a 500, ordenados alfabéticamente por nombre
-SELECT Name, MinSize
-FROM monster
-WHERE MinSize < 500
-ORDER BY Name ASC;
-
--- SELECT con WHERE y ORDER 5
--- Muestra los monstruos que viven en el 'Valle Putrefacto', ordenados por tamaño máximo ascendente
-SELECT Name, Habitat, MaxSize
-FROM monster
-WHERE Habitat LIKE '%Valle Putrefacto%'
-ORDER BY MaxSize ASC;
-
--- SELECT con WHERE y ORDER 6
--- Muestra los monstruos con elemento 'Hielo', ordenados por tamaño mínimo descendente
-SELECT monster.Name AS "Monstruo", element.Name AS "Elemento", monster.MinSize
-FROM monster
-JOIN element ON monster.ID_ELEMENT = element.ID_ELEMENT
-WHERE element.Name = 'Hielo'
-ORDER BY monster.MinSize DESC;
-
--- UPDATE 1
--- Actualiza el hábitat del monstruo 'Barioth' a 'Zona Glacial'
-UPDATE monster
-SET Habitat = 'Zona Glacial'
-WHERE Name = 'Barioth';
-
--- UPDATE 2
--- Cambia la debilidad del monstruo 'Deviljho' a 'Fuego'
-UPDATE monster
-SET ID_WEAKNESS = (
-    SELECT ID_WEAKNESS FROM weakness WHERE Name = 'Fuego'
-)
-WHERE Name = 'Deviljho';
-
--- DELETE
--- Elimina el monstruo llamado 'Apceros'
-DELETE FROM monster
-WHERE Name = 'Apceros';
-
--- INSERT
--- Inserta un nuevo monstruo llamado 'Gran Vespoid' usando valores compatibles y existentes
-INSERT INTO monster (ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Description, Habitat, Notes, MaxSize, MinSize)
-VALUES (
-    5, 1, 1, 7,
-    'Gran Vespoid',
-    'Insecto volador de gran tamaño que ataca en enjambres venenosos.',
-    'Bosque Primigenio',
-    'Es una versión más grande de los Vespoid, con ataques más potentes.',
-    500.0, 300.0
-);
