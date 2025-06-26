@@ -12,7 +12,7 @@ app.use('/Assets', express.static(path.join(__dirname, '..', 'Assets')));
 const conexion = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'Pl5083',
+  password: 'root',
   database: 'MonsterHunter' // Reemplaza esto
 });
 
