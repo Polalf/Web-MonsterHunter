@@ -76,7 +76,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function mostrarMonstruo(index) {
     const m = monsters[index];
-
+    
     monsterImage.src = `Assets/images/Monsters/${m.image || "placeholder.png"}`;
     monsterImage.alt = m.name || "[Dato no encontrado]";
 
