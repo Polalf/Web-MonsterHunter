@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   let currentIndex = 0;
-
   const monsterImage = document.getElementById("monster-image");
   const monsterInfo = document.querySelector(".monster-info");
   const descripcionBox = document.querySelector(".descripcion-box p");
@@ -105,5 +104,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
+    function SearchMonster(monsterName) {
+    var SearchValue = document.getElementById(monsterName).value.toLowerCase();
+
+    console.log(SearchValue);
+
+    for(i = 0; i < monsters.length; i++){
+
+      _monster = monsters[i].name.toLowerCase();
+      if(_monster == SearchValue){
+        currentIndex = i
+        mostrarMonstruo(currentIndex)
+      }
+    }
+  }
+
   mostrarMonstruo(currentIndex);
+
+ window.SearchMonster=SearchMonster;
 });
