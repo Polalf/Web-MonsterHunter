@@ -75,8 +75,9 @@ INSERT INTO `Images`(Path, Description) VALUES
 ('Assets/Images/Elements/Estado_DefensaSev.png', 'Estado Defensa Muy Reducida'),
 ('Assets/Images/Elements/Estado_AzoteNitro.png', 'Estado Azote Nitro'),
 ('Assets/Images/Elements/Estado_Sangrado.png', 'Estado Sangrado'),
-('Assets/Images/Elements/Estado_Efluvio.png', 'Estado Acumulación de Efluvio')
--- ;
+('Assets/Images/Elements/Estado_Efluvio.png', 'Estado Acumulación de Efluvio'),
+('Assets/Images/Monsters/Anjanath.png', 'Anjanath')
+;
 
 INSERT INTO `MonsterClass` (ID_CLASS, Name, Description) VALUES 
 (1, 'Bestia de Colmillo', 'Criaturas cuadrúpedas ágiles y feroces que cazan usando colmillos y garras.'),
@@ -167,9 +168,6 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
  (6, 1, 9, 2, 'Uragaan', 'Grandes y brutales wyverns que se alimentan de minerales, haciendo crujir rocas enormes hasta pulverizarlas con sus poderosísimas mandíbulas. Al parecer, no es infrecuente verles librando disputas territoriales con Lavasioth.',
  'Lecho de los Ancianos', 'El Uragaan tiene una habilidad única de enrollarse y rodar como una rueda para intentar aplastar al cazador, de ahí que sus protuberancias sean planas por encima.',
  3344.48, 410.06),
- (6, 1, 1, 2, 'Anjanath', 'Los Anjanath patrullan por el Bosque Primigenio en busca de su comida preferida, los Aptonoth. Este agresivo monstruo ataca a cualquiera sin titubear.',
- 'Bosque Primigenio, Yermo de Agujas', 'De forma similar al Glavenus, un órgano en su garganta le permite imbuir su boca en llamas, pudiendo luego expulsar llamaradas para atacar o dar mordiscos.',
- 2395.303, 1504.094),
  (6, 6, 9, 4, 'Radobaan', 'Un wyvern brutal gigantesco que se alimenta de huesos de cadáveres que encuentra en el Valle Putrefacto. También es capaz de usar los huesos como armadura, y se enrolla como una bola para atacar y desplazarse.',
  'Valle Putrefacto', 'El Radobaan puede parar en seco al rodar y rápidamente corregir su trayectoria para golpear, también es capaz de rodar por el suelo a gran velocidad como una peonza.',
  0, 0),
@@ -209,3 +207,7 @@ que se esconde bajo la tierra. Los ruidos fuertes lo hacen salir en busca de pre
 ;
 
 
+INSERT INTO `Monster`(ID_CLASS, ID_ELEMENT, ID_STATE, ID_WEAKNESS, Name, Description,Habitat,Notes, MaxSize , MinSize) VALUES
+ (6, 1, 1, 2, 'Anjanath', 'Los Anjanath patrullan por el Bosque Primigenio en busca de su comida preferida, los Aptonoth. Este agresivo monstruo ataca a cualquiera sin titubear.',
+ 'Bosque Primigenio, Yermo de Agujas', 'De forma similar al Glavenus, un órgano en su garganta le permite imbuir su boca en llamas, pudiendo luego expulsar llamaradas para atacar o dar mordiscos.',
+ 2395.303, 1504.094);
